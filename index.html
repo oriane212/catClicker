@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            body{
+                position:relative;
+            }
+            
+            .catClicker {
+                margin-left: 20px;
+                margin-top:20px;
+            }
+
+            img {
+                display:block;
+                width:75%;
+            }
+            #counter{
+                font-family: verdana;
+                color: darkslategrey;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div class="catClicker">
+            <div id="cat">
+                <img src="catPic.jpg">
+            </div>
+            <div id="counter">
+                <h4>Number of clicks</h4> 
+                <h1 id="clicks">0</h1>
+            </div>
+        </div>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <script>
+            var clicks = 0;
+            $('#cat').click(function(){
+                clicks += 1;
+                $('#clicks').html(clicks);
+            })
+        </script>
+
+    </body>
+
+</html>
+
+
