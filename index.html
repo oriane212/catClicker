@@ -6,47 +6,78 @@
             body{
                 position:relative;
             }
-            
-            .catClicker {
-                margin-left: 20px;
-                margin-top:20px;
+            .cat{
+                margin:20px;
+                max-width: 600px;
+                display: inline-block;
             }
-
-            img {
-                display:block;
-                width:75%;
+            .catName {
+                display: inline;
+                font-size: 1.125em;
             }
-            #counter{
-                font-family: verdana;
+            .catStats{
+                padding: 10px;
+                background-color: #EEEEEE;
+                font-family:helvetica;
                 color: darkslategrey;
             }
-
+            .clicks {
+                display: inline;
+                padding-right: 6px;
+                font-size: 1.125em;
+                font-weight: bold;
+            }
+            .counter{
+                display: inline;
+                float:right;
+            }
+            .clickUnit{
+                display: inline;
+                font-size: .85em;
+            }
+            img {
+                max-width:100%;
+            }
         </style>
     </head>
-
     <body>
-        <div class="catClicker">
-            <div id="cat">
-                <img src="catPic.jpg">
-            </div>
-            <div id="counter">
-                <h4>Number of clicks</h4> 
-                <h1 id="clicks">0</h1>
-            </div>
-        </div>
-        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
         <script>
-            var clicks = 0;
-            $('#cat').click(function(){
-                clicks += 1;
-                $('#clicks').html(clicks);
+            //dictionary of cats, where each key is a cat's name and picture url is its value
+            var cats = {
+                'Tux and Saturn' : 'catPic.jpg',
+                'Chao Yun' : 'catPic2.jpg'
+            };
+            //for each cat in the dictionary, create DOM of elements containing cat data
+            for (var cat in cats){
+                //elements
+                var img = $('<img>').attr('src',cats[cat])
+                var catName = $('<p></p>').html(cat).addClass('catName');
+                var clicks = $('<p></p>').html('0').addClass('clicks');
+                var clickUnit = $('<p></p>').addClass('clickUnit').html("clicks");
+                //DOM
+                var counter = $('<div></div>').addClass('counter').append(clicks,clickUnit);
+                var catStats = $('<div></div>').addClass('catStats').append(catName,counter);
+                var cat = $('<div></div>').addClass('cat').attr('id',cat).append(img, catStats);
+                $('body').append(cat);
+            }
+            //updates the number of clicks each time a cat picture is clicked
+            $('img').click(function(){
+                var cat = $(this).parent('div');
+                var clicks = cat.find('.clicks');
+                var click_count = Number(clicks.html());
+                var clickUnit = cat.find('.clickUnit');
+                click_count += 1;
+                clicks.html(click_count);
+                if (click_count == 1){
+                    clickUnit.html('click');
+                }
+                else {
+                    clickUnit.html('clicks');
+                }
             })
         </script>
-
     </body>
-
 </html>
 
 
